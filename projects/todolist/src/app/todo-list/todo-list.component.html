@@ -1,0 +1,9 @@
+<h1>Liste des choses à faire from todo-list</h1>
+
+<a href="#" role="button" (click)="onClickTodo()">A faire</a>
+<a href="#" role="button" (click)="onClickTodoCompleted()">Terminé</a>
+<a href="#" role="button" (click)="onClickTodoShowEverything()">Afficher tout</a>
+
+<ng-container *ngFor="let todo of todoList">
+  <todo *ngIf="todo.isCompleted === completedFilter || showEverything" [value]="todo"/>
+</ng-container>

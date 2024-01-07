@@ -1,0 +1,12 @@
+<article *ngIf="todo" border-highlight>
+  <div class="grid">
+    <label for="todo-{{todo.id}}">
+      <input type="checkbox" id="todo-{{todo.id}}" name="todo-{{todo.id}}" [checked]="todo?.isCompleted">
+      {{todo.title}}
+    </label>
+    <div class="action">
+      <a href="#">Edit</a>
+      <a href="#">Delete</a>
+    </div>
+  </div>
+</article>

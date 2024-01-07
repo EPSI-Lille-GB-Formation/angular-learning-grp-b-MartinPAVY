@@ -35,7 +35,7 @@ export const TODOS: Todo[] = [
     content:
       "Prendre rendez-vous avec le plombier pour réparer la fuite d'eau dans la salle de bains.",
     author: 'Caroline',
-    isCompleted: false,
+    isCompleted: true,
     createdAt: new Date(),
     completedAt: null,
   },
@@ -100,7 +100,7 @@ export const TODOS: Todo[] = [
     content:
       "Commencer à apprendre l'italien en regardant des vidéos sur Youtube.",
     author: 'Julien',
-    isCompleted: true,
+    isCompleted: false,
     createdAt: new Date(),
     completedAt: null,
   },
