@@ -1,0 +1,11 @@
+<h1>Liste des livres</h1>
+
+<a href="#" [class.secondary]="isNovel" role="button" (click)="showNovels()">Nouvelle</a>
+<a href="#" [class.secondary]="isRoman" role="button"
+   (click)="showRomans()">Romans</a>
+<a href="#" [class.secondary]="isNovel && isRoman" role="button" (click)="onClickShowEverything()">Afficher
+  tout</a>
+
+<ng-container *ngFor="let book of bookList">
+  <book [value]="book"/>
+</ng-container>
