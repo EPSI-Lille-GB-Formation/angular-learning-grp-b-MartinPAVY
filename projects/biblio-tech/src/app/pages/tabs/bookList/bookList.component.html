@@ -11,10 +11,6 @@
   </div>
 </div>
 
-<p>
-  {{ userEmail }}
-  coucou
-</p>
 <ng-container *ngIf="!isCreating">
   <div *ngFor="let book of bookList">
     <book [value]="book"/>

@@ -2,11 +2,12 @@
   <div class="grid">
     <label for="todo-{{todo.id}}">
       <input type="checkbox" id="todo-{{todo.id}}" name="todo-{{todo.id}}" [checked]="todo?.isCompleted">
-      {{todo.title}}
+      {{ todo.title }}
     </label>
     <div class="action">
       <a href="#">Edit</a>
-      <a href="#">Delete</a>
+      <a href="#" (click)="goToTaskDetails(todo?.id)">View</a>
+      <a href="#" (click)="onClickDelete()">Delete</a>
     </div>
   </div>
 </article>

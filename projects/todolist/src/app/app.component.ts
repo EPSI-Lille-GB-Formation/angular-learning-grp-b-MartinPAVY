@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterOutlet} from '@angular/router';
 import '@picocss/pico'
 import {TodoListComponent} from "./todo-list/todo-list.component";
 
@@ -9,9 +9,9 @@ import {TodoListComponent} from "./todo-list/todo-list.component";
   standalone: true,
   imports: [CommonModule, RouterOutlet, TodoListComponent],
   template: `
-      <div class="container">
-          <todo-list></todo-list>
-      </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
   `,
   styles: []
 })

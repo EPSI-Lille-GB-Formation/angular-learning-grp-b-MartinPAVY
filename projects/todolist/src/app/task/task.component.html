@@ -1,1 +1,14 @@
-<p>Affiche la tâche cliquée!</p>
+<div>
+  <h1>Affiche la tâche cliquée!</h1>
+
+  <a href="#" role="button" (click)="goToHomePage()">Accueil</a>
+
+  <ng-container>
+    <p>Id : {{ this.task?.id }}</p>
+    <p>Titre : {{ this.task?.title }}</p>
+    <p>Contenu : {{ this.task?.content }}</p>
+    <p>Auteur : {{ this.task?.author }}</p>
+    <p>Date de création : {{ this.task?.createdAt }}</p>
+    <p>Date d'édition : {{ this.task?.completedAt }}</p>
+  </ng-container>
+</div>
