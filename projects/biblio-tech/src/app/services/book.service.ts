@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-import {catchError, of, tap, Observable} from 'rxjs';
-import {Book} from "../book";
+import {catchError, of, tap, Observable, map} from 'rxjs';
+import {Book} from "./Entity/book";
 
 
 @Injectable({
@@ -34,12 +34,36 @@ export class BookService {
     )
   }
 
-  deleteBookById(bookId: number): Observable<any> {
+  createBook(book: Book): Observable<any> {
+    return this.http.post<Book>(`${this.booksUrl}/${book}`, book).pipe(
+      catchError(error => {
+        console.log(error);
+        return of();
+      })
+    )
+  }
+
+  updateBook(book: Book): Observable<any> {
+    return this.http.put<Book>(`${this.booksUrl}/${book.id}`, book).pipe(
+      catchError(error => {
+        console.log(error);
+        return of();
+      })
+    )
+  }
+
+  deleteBook(bookId: number): Observable<any> {
     return this.http.delete<Book>(`${this.booksUrl}/${bookId}`).pipe(
       catchError(error => {
         console.log(error);
         return of();
       })
     )
+  }
+
+  searchBooksByTitle(title: string): Observable<Book[]> {
+    return this.getBookList().pipe(
+      map(books => books.filter(book => book.title.toLowerCase().includes(title.toLowerCase())))
+    );
   }
 }

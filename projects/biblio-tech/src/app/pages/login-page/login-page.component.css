@@ -1,5 +1,6 @@
 /* styles.css or your component-specific styles file */
 
+
 h1 {
   font-weight: 500;
   color: #181A1F;
@@ -19,6 +20,7 @@ label {
   margin-bottom: 8px;
   color: #616366;
   letter-spacing: 1px;
+
 }
 
 input {
@@ -29,6 +31,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #ccc;
+  color: #181A1F;
 }
 
 button {

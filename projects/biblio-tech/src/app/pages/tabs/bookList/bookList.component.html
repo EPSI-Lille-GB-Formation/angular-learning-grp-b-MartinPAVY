@@ -1,11 +1,42 @@
+<!-- bookList.component.html -->
 <h1>Liste des livres</h1>
 
-<a href="#" [class.secondary]="isNovel" role="button" (click)="showNovels()">Nouvelle</a>
-<a href="#" [class.secondary]="isRoman" role="button"
-   (click)="showRomans()">Romans</a>
-<a href="#" [class.secondary]="isNovel && isRoman" role="button" (click)="onClickShowEverything()">Afficher
-  tout</a>
+<div class="buttonContainer">
+  <div class="search-container">
+    <input [(ngModel)]="searchText" type="text" placeholder="Rechercher un livre par titre..." (input)="searchBooks()">
+  </div>
+  <div class="buttonProfile">
+    <button *ngIf="isLogged" (click)="createStatus()">Créer un livre</button>
+    <a role="button" routerLink="/profile">Mon compte</a>
+  </div>
+</div>
 
-<ng-container *ngFor="let book of bookList">
-  <book [value]="book"/>
+<p>
+  {{ userEmail }}
+  coucou
+</p>
+<ng-container *ngIf="!isCreating">
+  <div *ngFor="let book of bookList">
+    <book [value]="book"/>
+  </div>
+  <p>
+  </p>
+</ng-container>
+
+<ng-container *ngIf="isCreating">
+  <label for="title">Titre :</label>
+  <input type="text" id="title" [(ngModel)]="createdBook.title" name="title" required>
+
+  <label for="resume">Résumé :</label>
+  <input type="text" id="resume" [(ngModel)]="createdBook.resume" name="resume" required>
+
+  <label for="categoryId">Id de catégorie :</label>
+  <input type="text" id="categoryId" [(ngModel)]="createdBook.categoryId" name="categoryId" required>
+
+  <label for="img">Url de l'image :</label>
+  <input type="text" id="img" [(ngModel)]="createdBook.image" name="img">
+
+  <button (click)="createBook()">
+    Confirmer la création
+  </button>
 </ng-container>

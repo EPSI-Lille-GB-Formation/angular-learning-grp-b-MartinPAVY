@@ -1,0 +1,19 @@
+<!-- book.component.html -->
+<article *ngIf="book" border-highlight>
+  <div class="grid">
+    <label for="book-{{book.id}}">
+      <div>
+        {{ book.title }}
+        <p>
+          {{ author }}
+        </p>
+      </div>
+    </label>
+    <div class="action">
+      <a *ngIf="isLogged" href="#" routerLink="bookDetails/{{book.id}}">Consulter</a>
+      <a *ngIf="!isLogged" href="#">Connectez vous pour consulter</a>
+      <a href="#" *ngIf="isAdmin" (click)="onClickDelete">Supprimer</a>
+    </div>
+  </div>
+
+</article>

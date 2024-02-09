@@ -1,0 +1,14 @@
+<!-- category.component.html -->
+<article *ngIf="category" border-highlight>
+  <div class="grid">
+    <label for="book-{{category.id}}">
+      <div>
+        {{ category.label }}
+      </div>
+    </label>
+    <div class="action">
+      <a (click)="deleteCategory()">Supprimer</a>
+    </div>
+  </div>
+
+</article>

@@ -1,0 +1,63 @@
+/* bookDetails.component.css */
+.topBar {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.book-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.book-details a {
+  margin-right: 10px;
+}
+
+.book-details h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.book-details .book-info {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.book-details .book-info h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.book-details .book-resume {
+  margin-bottom: 15px;
+}
+
+.book-details .additional-info {
+  margin-top: 15px;
+}
+
+.book-details .additional-info p {
+  margin-bottom: 5px;
+}
+
+.edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.edit button {
+  margin: 1rem;
+}
+
+.margin {
+  margin: 1rem;
+}
+
+.padding {
+  padding: 1rem;
+}

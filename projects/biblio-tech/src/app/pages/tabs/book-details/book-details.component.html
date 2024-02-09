@@ -1,0 +1,43 @@
+<!-- bookDetails.component.html -->
+<div class="book-details">
+  <div class="topBar">
+    <h1>Détails du livre</h1>
+    <a href="" role="button" (click)="goToHomePage()">Accueil</a>
+
+  </div>
+
+  <div *ngIf="!isEditing" class="book-info">
+    <h2>{{ book.title }}</h2>
+    <p class="book-resume">{{ book.resume }}</p>
+    <div class="additional-info">
+      <p>Auteur: {{ book.authorEmail }}</p>
+      <p>Créé le: {{ book.createdAt }}</p>
+      <p>Mis à jour le: {{ book.updatedAt }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing">
+    <label for="title">Titre:</label>
+    <input id="title" [(ngModel)]="book.title"/>
+
+    <label for="resume">Résumé:</label>
+    <textarea id="resume" [(ngModel)]="book.resume"></textarea>
+
+    <div class="edit">
+      <button (click)="confirmEdit()">Confirmer</button>
+    </div>
+
+  </div>
+  <div class="edit">
+    <button *ngIf="isAuthor || isAdmin && !isEditing" role="button"
+            (click)="editBook()"> Modifier
+    </button>
+    <button *ngIf="isAuthor || isAdmin" role="button" (click)="deleteBook()">Supprimer</button>
+  </div>
+
+  <h3 class="margin">Pages du livre</h3>
+
+  <ng-container *ngFor="let page of pageList">
+    <p>{{ page.title }}</p>
+  </ng-container>
+</div>
