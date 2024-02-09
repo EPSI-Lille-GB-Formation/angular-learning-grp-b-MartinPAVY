@@ -5,6 +5,8 @@ import {NgForOf, NgIf} from "@angular/common";
 import {LocalStorageService} from "../../../services/Storage/local-storage.service";
 import {CategoryService} from "../../../services/category.service";
 import {CategoryComponent} from "../../../Components/category/Category.component";
+import {UserService} from "../../../services/user.service";
+import {UserComponent} from "../../../Components/user/user.component";
 
 @Component({
   selector: 'profile-page',
@@ -14,6 +16,7 @@ import {CategoryComponent} from "../../../Components/category/Category.component
     NgIf,
     NgForOf,
     CategoryComponent,
+    UserComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css'
@@ -25,11 +28,13 @@ export class ProfilePageComponent implements OnInit {
   isAdmin: boolean = false;
   sameId: boolean = true;
   categories: any[] = [];
+  users: any[] = [];
+  userEmail: string = '';
   user = {
-    name: 'John',
-    surname: 'Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'john.doe@example.com',
-    isAdmin: true
+    role: 2
   };
   category = {
     id: 10,
@@ -39,19 +44,23 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private userService: UserService
   ) {
   }
 
   ngOnInit(): void {
     this.isLogged = this.localStorageService.getData('isLogged')
     this.isAdmin = this.localStorageService.getData('isAdmin')
+    this.userEmail = this.localStorageService.getData('userEmail')
+    this.user = this.localStorageService.getData('user')
     this.categoryService.getCategorieList().subscribe(categories => this.categories = categories);
+    this.userService.getAllUsers('pavy.martin@gmail.com').subscribe(users => this.users = users);
   }
 
 
   deleteCategories(categoryId: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce livre?')) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie?')) {
       this.categoryService.deleteCategory(categoryId).subscribe(() => {
         window.alert('Catégorie supprimée');
       });

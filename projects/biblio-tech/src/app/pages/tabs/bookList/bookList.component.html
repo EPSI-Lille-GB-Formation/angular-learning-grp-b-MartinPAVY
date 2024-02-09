@@ -7,7 +7,7 @@
   </div>
   <div class="buttonProfile">
     <button *ngIf="isLogged" (click)="createStatus()">Créer un livre</button>
-    <a role="button" routerLink="/profile">Mon compte</a>
+    <button (click)="redirectToProfile()">Mon compte</button>
   </div>
 </div>
 

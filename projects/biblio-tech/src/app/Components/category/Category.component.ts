@@ -51,7 +51,7 @@ export class CategoryComponent implements OnInit {
         window.alert('Catégorie supprimée');
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 1000); // Redirect after 1 second
+        }, 1000);
       });
     }
   }

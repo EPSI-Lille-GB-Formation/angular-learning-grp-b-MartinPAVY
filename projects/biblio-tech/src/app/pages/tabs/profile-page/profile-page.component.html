@@ -12,11 +12,11 @@
   <ng-container *ngIf="isLogged">
 
     <div class="isNotEditing" *ngIf="!isEditing">
-      <p>Nom : {{ user.name }}</p>
-      <p>Prénom : {{ user.surname }}</p>
+      <p>Nom : {{ user.lastName }}</p>
+      <p>Prénom : {{ user.firstName }}</p>
       <p>Email : {{ user.email }}</p>
-      <p *ngIf="user.isAdmin">Rôle : Administrateur</p>
-      <p *ngIf="!user.isAdmin">Rôle : Client</p>
+      <p *ngIf="user.role == 1">Rôle : Administrateur</p>
+      <p *ngIf="user.role != 1">Rôle : Client</p>
       <button (click)="editUser()" *ngIf="!isEditing">
         Modifier
       </button>
@@ -27,10 +27,10 @@
 
     <div *ngIf="isEditing">
       <label for="name">Nom :</label>
-      <input id="name" [(ngModel)]="user.name"/>
+      <input id="name" [(ngModel)]="user.lastName"/>
 
       <label for="surname">Prénom :</label>
-      <input id="surname" [(ngModel)]="user.surname"/>
+      <input id="surname" [(ngModel)]="user.firstName"/>
 
       <label for="email">Email :</label>
       <input id="email" [(ngModel)]="user.email"/>
@@ -72,6 +72,14 @@
       </button>
     </ng-container>
 
+    <ng-container>
+      <h3>Utilisateurs</h3>
+      <div *ngFor="let currentUser of users">
+
+        <user [value]="currentUser"/>
+      </div>
+    </ng-container>
   </ng-container>
+
 
 </div>

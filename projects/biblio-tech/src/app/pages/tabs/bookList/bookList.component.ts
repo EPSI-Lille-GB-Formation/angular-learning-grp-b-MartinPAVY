@@ -102,6 +102,10 @@ export class BookListComponent {
     this.isCreating = !this.isCreating
   }
 
+  redirectToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
 
   protected readonly navigator = navigator;
 }

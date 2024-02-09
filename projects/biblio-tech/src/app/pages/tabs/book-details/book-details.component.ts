@@ -22,11 +22,22 @@ import {Page} from "../../../services/Entity/page";
   styleUrl: './book-details.component.css'
 })
 export class BookDetailsComponent implements OnInit {
+  currentDate: Date = new Date();
+  id: number = this.currentDate.getTime();
   book!: Book;
   isAuthor: boolean = false;
   isAdmin: boolean = false;
   isEditing: boolean = false;
+  isAddingPage: boolean = false;
   pageList: Page[] = [];
+  newPage: Page = {
+    id: this.id,
+    title: '',
+    content: '',
+    createdAt: this.currentDate,
+    updatedAt: this.currentDate,
+    bookId: 1
+  }
 
   constructor(
     private bookService: BookService,
@@ -43,21 +54,22 @@ export class BookDetailsComponent implements OnInit {
     this.bookService.getBookById(+bookId).subscribe(bookDetails => this.book = bookDetails)
     this.isAdmin = this.localStorageService.getData('isAdmin')
 
+    this.pageService.getPagesByBookId(bookId).subscribe(
+      pages => {
+        this.pageList = pages;
+      },
+      error => {
+        console.error('Erreur lors de la récupération des pages :', error)
+      }
+    )
+
     if (USERS.find(user => user.email === this.book.authorEmail)) {
-      console.log(this.isAuthor)
       this.isAuthor = true
     }
 
+
     console.log('initialization done')
 
-  }
-
-  fetchPages(bookId: number) {
-    console.log('IsCalled')
-    this.pageService.getPagesList().subscribe(pages => {
-      console.log('isInFilter')
-      this.pageList = pages.filter(page => page.bookId === bookId);
-    });
   }
 
   goToHomePage() {
@@ -68,10 +80,14 @@ export class BookDetailsComponent implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
+  addPages() {
+    this.isAddingPage = !this.isAddingPage;
+  }
+
   confirmEdit() {
     this.book.updatedAt = new Date();
     this.bookService.updateBook(this.book).subscribe(() => {
-      this.isEditing = false; // Exit editing mode after successful update
+      this.isEditing = false;
     });
   }
 
@@ -81,7 +97,18 @@ export class BookDetailsComponent implements OnInit {
         window.alert('Livre supprimé');
         setTimeout(() => {
           this.router.navigate(['']);
-        }, 1000); // Redirect after 1 second
+        }, 1000);
+      });
+    }
+  }
+
+  deletePage(pageId: number) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette page?')) {
+      this.pageService.deletePage(pageId).subscribe(() => {
+        window.alert('Page supprimée');
+        setTimeout(() => {
+          this.router.navigate(['']);
+        }, 1000);
       });
     }
   }
@@ -91,6 +118,44 @@ export class BookDetailsComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear().toString();
     return `${day}/${month}/${year}`;
+  }
+
+  confirmAddPage() {
+    console.log('1')
+    if (this.newPage.id === this.book.id) {
+
+      console.log('2')
+      this.pageService.createPage(this.newPage).subscribe({
+
+
+        next: () => {
+          alert("La page a correctement été créée");
+          setTimeout(() => {
+            this.router.navigate(['']);
+            this.addPages()
+          }, 1000)
+        }, error: (error) => {
+          console.error("error", error)
+          alert("Une erreur s'est produite");
+        }
+      })
+    } else {
+
+      console.log('4')
+      this.newPage.id = this.book.id
+      this.pageService.createPage(this.newPage).subscribe({
+        next: (user) => {
+          alert("La page a correctement été créée");
+          setTimeout(() => {
+            this.isAddingPage = false;
+          }, 1000)
+        }, error: (error) => {
+          console.error("error", error)
+          alert("Une erreur s'est produite");
+        }
+      })
+    }
+
   }
 
 }

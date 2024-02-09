@@ -26,8 +26,8 @@
     <div class="edit">
       <button (click)="confirmEdit()">Confirmer</button>
     </div>
-
   </div>
+
   <div class="edit">
     <button *ngIf="isAuthor || isAdmin && !isEditing" role="button"
             (click)="editBook()"> Modifier
@@ -37,7 +37,26 @@
 
   <h3 class="margin">Pages du livre</h3>
 
-  <ng-container *ngFor="let page of pageList">
-    <p>{{ page.title }}</p>
+  <ng-container *ngIf="!isAddingPage">
+    <div *ngFor="let page of pageList">
+      <p>{{ page.title }}</p>
+      <p>{{ page.content }}</p>
+      <button *ngIf="isAuthor || isAdmin" role="button" (click)="deletePage(page.id)">Supprimer</button>
+    </div>
+    <button *ngIf="isAuthor || isAdmin" role="button" (click)="addPages()">Ajouter une page</button>
   </ng-container>
+
+  <div *ngIf="isAddingPage">
+
+    <label for="pageTitle">Titre :</label>
+    <input id="pageTitle" [(ngModel)]="newPage.title"/>
+
+    <label for="pageContent">Contenu:</label>
+    <textarea id="pageContent" [(ngModel)]="newPage.content"></textarea>
+
+    <div class="edit">
+      <button (click)="confirmAddPage()">Confirmer</button>
+    </div>
+  </div>
+
 </div>

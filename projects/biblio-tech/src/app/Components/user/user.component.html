@@ -1,0 +1,14 @@
+<!-- user.component.html -->
+<article *ngIf="user" border-highlight>
+  <div class="grid">
+    <label for="user-{{user.id}}">
+      <div>
+        {{ user.email }}
+      </div>
+    </label>
+    <div class="action">
+      <a (click)="deleteUser( user.id)">Supprimer</a>
+    </div>
+  </div>
+
+</article>

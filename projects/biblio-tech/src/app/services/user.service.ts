@@ -15,8 +15,8 @@ export class UserService {
   }
 
 
-  getAllUsers(currentUserId: number): Observable<User[]> {
-    if (!this.isAdmin(currentUserId)) {
+  getAllUsers(currentUserEmail: string): Observable<User[]> {
+    if (!this.isAdmin(currentUserEmail)) {
       return throwError(() => new Error('Unauthorized'));
     }
     return this.http.get<User[]>(this.usersUrl);
@@ -30,30 +30,30 @@ export class UserService {
     return this.http.post<User>(this.usersUrl, user);
   }
 
-  createUserByAdmin(user: User, currentUserId: number): Observable<User> {
-    if (!this.isAdmin(currentUserId)) {
+  createUserByAdmin(user: User, currentUserEmail: string): Observable<User> {
+    if (!this.isAdmin(currentUserEmail)) {
       return throwError(() => new Error('Unauthorised'));
     }
     return this.http.post<User>(this.usersUrl, user);
   }
 
-  updateUser(user: User, currentUserId: number): Observable<User> {
-    if (!this.isAdmin(currentUserId) && user.id !== currentUserId) {
+  updateUser(user: User, currentUserEmail: string): Observable<User> {
+    if (!this.isAdmin(currentUserEmail) && user.email !== currentUserEmail) {
       return throwError(() => new Error('Unauthorized'));
     }
     return this.http.put<User>(`${this.usersUrl}/${user.id}`, user);
   }
 
-  deleteUser(id: number, currentUserId: number): Observable<User> {
-    if (!this.isAdmin(currentUserId)) {
+  deleteUser(id: number, currentUserEmail: string): Observable<User> {
+    if (!this.isAdmin(currentUserEmail)) {
       return throwError(() => new Error('Unauthorized'));
     }
     return this.http.delete<User>(`${this.usersUrl}/${id}`);
   }
 
-  private isAdmin(userId: number): boolean {
-    const adminUsers: number[] = [0, 1, 2]
-    return adminUsers.includes(userId)
+  private isAdmin(userEmail: string): boolean {
+    const adminUsers: string[] = ['pavy.martin@gmail.com']
+    return adminUsers.includes(userEmail)
   }
 
 }

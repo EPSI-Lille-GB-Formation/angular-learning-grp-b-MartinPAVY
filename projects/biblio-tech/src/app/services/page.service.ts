@@ -24,6 +24,15 @@ export class PageService {
     )
   }
 
+  getPagesByBookId(bookId: number): Observable<Page[]> {
+    return this.http.get<Page[]>(`${this.pagesUrl}?bookId=${bookId}`).pipe(
+      catchError(error => {
+        console.error('PageService - Erreur lors de la récupération des pages :', error);
+        throw error;
+      })
+    );
+  }
+
   createPage(page: Page): Observable<any> {
     return this.http.post<Book>(`${this.pagesUrl}/${page}`, page).pipe(
       catchError(error => {
